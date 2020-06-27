@@ -1,21 +1,27 @@
 package com.dks.apilojavirtual.serviceImpl;
 
 import com.dks.apilojavirtual.domain.Client;
+import com.dks.apilojavirtual.repository.ClientRepository;
 import com.dks.apilojavirtual.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ClientServiceImpl implements ClientService {
+
+    @Autowired
+    private ClientRepository clientRepository;
+
     @Override
     public List<Client> list() {
-        return null;
+        return clientRepository.findAll();
     }
 
     @Override
     public Client create(Client client) {
-        return null;
+        return clientRepository.save(client);
     }
 
     @Override

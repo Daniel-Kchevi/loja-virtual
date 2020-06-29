@@ -1,6 +1,5 @@
 package com.dks.apilojavirtual.serviceImpl;
 
-import com.dks.apilojavirtual.domain.Client;
 import com.dks.apilojavirtual.domain.PurchaseOrder;
 import com.dks.apilojavirtual.exception.PurchaseOrderNotFoud;
 import com.dks.apilojavirtual.repository.PurchaseOrderRepository;

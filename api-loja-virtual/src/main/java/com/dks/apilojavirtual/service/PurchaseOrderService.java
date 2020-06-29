@@ -1,6 +1,5 @@
 package com.dks.apilojavirtual.service;
 
-import com.dks.apilojavirtual.domain.Client;
 import com.dks.apilojavirtual.domain.PurchaseOrder;
 
 import java.util.List;

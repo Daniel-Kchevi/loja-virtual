@@ -29,6 +29,7 @@ public class ClientController {
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
+                .path("/{id}")
                 .buildAndExpand(client.getId())
                 .toUri();
         return ResponseEntity.created(uri).body(client);

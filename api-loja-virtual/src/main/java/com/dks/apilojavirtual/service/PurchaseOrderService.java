@@ -1,19 +1,19 @@
 package com.dks.apilojavirtual.service;
 
 import com.dks.apilojavirtual.domain.Client;
-import com.dks.apilojavirtual.domain.Product;
+import com.dks.apilojavirtual.domain.PurchaseOrder;
 
 import java.util.List;
 
 public interface PurchaseOrderService {
 
-    List<PurchaseOrderService> list();
+    List<PurchaseOrder> list();
 
-    Client create (PurchaseOrderService purchaseOrderService);
+    PurchaseOrder create (PurchaseOrder purchaseOrder);
 
-    void edit (PurchaseOrderService purchaseOrderService);
+    void edit (PurchaseOrder purchaseOrder);
 
     void delete (Long id);
 
-    Client getPurchaseOrderServiceById(Long id);
+    PurchaseOrder getPurchaseOrderById(Long id);
 }

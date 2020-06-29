@@ -9,12 +9,12 @@ public interface ProductService {
 
     List<Product> list();
 
-    Client create (Product product);
+    Product create (Product product);
 
     void edit (Product product);
 
     void delete (Long id);
 
-    Client getProductById(Long id);
+    Product getProductById(Long id);
 
 }

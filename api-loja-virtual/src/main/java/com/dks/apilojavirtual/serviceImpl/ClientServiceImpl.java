@@ -4,7 +4,6 @@ import com.dks.apilojavirtual.domain.Client;
 import com.dks.apilojavirtual.exception.ClientNotFound;
 import com.dks.apilojavirtual.repository.ClientRepository;
 import com.dks.apilojavirtual.service.ClientService;
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

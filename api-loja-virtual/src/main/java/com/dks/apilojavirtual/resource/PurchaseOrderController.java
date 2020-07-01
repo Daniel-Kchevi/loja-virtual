@@ -1,5 +1,6 @@
 package com.dks.apilojavirtual.resource;
 
+import com.dks.apilojavirtual.domain.Product;
 import com.dks.apilojavirtual.domain.PurchaseOrder;
 import com.dks.apilojavirtual.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class PurchaseOrderController {
 
     @PostMapping
     public ResponseEntity<PurchaseOrder> createOrder(@RequestBody PurchaseOrder purchaseOrder){
+
         purchaseOrderService.create(purchaseOrder);
 
         URI uri = ServletUriComponentsBuilder
@@ -55,6 +57,14 @@ public class PurchaseOrderController {
     @GetMapping("/{id}")
     public ResponseEntity<PurchaseOrder> getOrderById(@PathVariable("id")Long id){
         return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.getPurchaseOrderById(id));
+    }
+
+    @PostMapping("/{id}/products")
+    public ResponseEntity<Void> addProduct(@PathVariable("id") Long id,
+                                           @RequestBody Product product){
+        purchaseOrderService.saveProduct(id, product.getId());
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 }

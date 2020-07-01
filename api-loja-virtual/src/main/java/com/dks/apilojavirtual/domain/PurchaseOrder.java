@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -20,10 +22,10 @@ public class PurchaseOrder implements Serializable {
 
     private String description;
 
-    @OneToMany(mappedBy = "purchaseOrder")
+    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER)
     private List<Product> products;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "CLIENT_ID")
     private Client client;
 

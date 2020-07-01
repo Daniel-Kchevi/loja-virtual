@@ -1,7 +1,6 @@
 package com.dks.apilojavirtual.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.javafx.geom.transform.Identity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,8 +25,8 @@ public class Product implements Serializable {
 
     private BigDecimal value;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ORDER_ID")
+    @ManyToOne
+    @JoinColumn(name = "PURCHASEORDER_ID")
     @JsonIgnore
     private PurchaseOrder purchaseOrder;
 

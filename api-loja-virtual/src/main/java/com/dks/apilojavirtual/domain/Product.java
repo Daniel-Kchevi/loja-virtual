@@ -1,5 +1,6 @@
 package com.dks.apilojavirtual.domain;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,30 +24,13 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String description;
 
+    @NotNull
     private Long amount;
 
+    @NotNull
     private BigDecimal value;
-
-    //    @ManyToOne
-//    @JoinColumn(name = "PURCHASEORDER_ID")
-//    @JsonIgnore
-//    @ManyToMany(mappedBy = "products")
-
-//    @ManyToMany(cascade = {
-//            CascadeType.ALL
-//    }, fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "order_product",
-//            joinColumns = {
-//                    @JoinColumn(name = "product_id")
-//            },
-//            inverseJoinColumns = {
-//                    @JoinColumn(name = "purchaseOrder_id")
-//            }
-//    )
-//    @JsonIgnore
-//    private List<PurchaseOrder> purchaseOrders = new ArrayList<>();
 
 }

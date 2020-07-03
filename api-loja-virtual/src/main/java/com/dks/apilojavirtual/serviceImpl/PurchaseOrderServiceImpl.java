@@ -10,9 +10,7 @@ import com.dks.apilojavirtual.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PurchaseOrderServiceImpl implements PurchaseOrderService {
@@ -29,10 +27,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public PurchaseOrder create(PurchaseOrder purchaseOrder) {
         purchaseOrder.setId(null);
 
-        List<OrderItem> listOrder = new ArrayList<>();
+        Set<OrderItem> listOrder = new HashSet<>();
         listOrder = purchaseOrder.getOrderItems();
 
-        purchaseOrder.setOrderItems(new ArrayList<>());
+        purchaseOrder.setOrderItems(new HashSet<>());
 
         Product product = null;
 

@@ -21,9 +21,13 @@ public class OrderItem implements Serializable {
     @OneToOne
     private Product product;
 
+    @ManyToOne
+    @JoinColumn(name = "purchaseOrder_id")
+    private PurchaseOrder purchaseOrder;
+
+    private Long amount;
+
     public OrderItem(Product product){
         this.product = product;
     }
-
-    private Long amount;
 }

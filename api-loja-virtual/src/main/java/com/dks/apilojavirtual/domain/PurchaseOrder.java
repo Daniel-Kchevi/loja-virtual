@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -27,8 +28,8 @@ public class PurchaseOrder implements Serializable {
     @NotNull
     private String description;
 
-    @OneToMany
-    private List<OrderItem> orderItems;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<OrderItem> orderItems;
 
     @ManyToOne
     @JoinColumn(name = "CLIENT_ID")

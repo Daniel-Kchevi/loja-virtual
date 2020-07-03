@@ -1,5 +1,6 @@
 package com.dks.apilojavirtual.serviceImpl;
 
+import com.dks.apilojavirtual.domain.OrderItem;
 import com.dks.apilojavirtual.domain.Product;
 import com.dks.apilojavirtual.domain.PurchaseOrder;
 import com.dks.apilojavirtual.exception.PurchaseOrderNotFoud;
@@ -25,15 +26,28 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     private final String orderNotFund = "O pedido não foi encontrado.";
 
     @Override
-    public List<PurchaseOrder> list() {
-        return purchaseOrderRepository.findAll();
-    }
-
-    @Override
     public PurchaseOrder create(PurchaseOrder purchaseOrder) {
         purchaseOrder.setId(null);
+
+        List<OrderItem> listOrder = new ArrayList<>();
+        listOrder = purchaseOrder.getOrderItems();
+
+        purchaseOrder.setOrderItems(new ArrayList<>());
+
+        Product product = null;
+
         try{
-            purchaseOrder.setProducts(listProduct(purchaseOrder.getProducts()));
+            for(OrderItem item : listOrder){
+                Optional<String> op = Optional.empty();
+                Optional<Product> prod = productRepository.findById(item.getProduct().getId());
+                if(op.equals(prod)){
+                    product = new Product();
+                }else{
+                    product = prod.get();
+                }
+                purchaseOrder.addProduct(product);
+            }
+
             purchaseOrderRepository.save(purchaseOrder);
         }catch (Exception e){
             System.out.println(e.getCause());
@@ -41,30 +55,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return purchaseOrder;
     }
 
-    private List<Product> listProduct(List<Product> purchaseOrders) {
-        List<Product> productList = new ArrayList<>();
-        for(Product product : purchaseOrders){
-            Optional<Product> pro = productRepository.findById(product.getId());
-            product = pro.get();
-            productList.add(product);
-        }
-        return productList;
-    }
-
-    @Override
-    public void edit(PurchaseOrder purchaseOrder) {
-        try{
-            checkingOrder(purchaseOrder.getId());
-            purchaseOrderRepository.save(purchaseOrder);
-        }catch (Exception e){
-            throw new PurchaseOrderNotFoud(orderNotFund);
-        }
-    }
-
     @Override
     public void delete(Long id) {
         try{
-            checkingOrder(id);
+//            checkingOrder(id);
             purchaseOrderRepository.deleteById(id);
         }catch (Exception e){
             throw new PurchaseOrderNotFoud(orderNotFund);
@@ -91,28 +85,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return purchaseOrder;
     }
 
-    @Override
-    public PurchaseOrder saveProduct(Long idOrder, Long idProduct) {
-        Optional<Product> prod = productRepository.findById(idProduct);
-
-        Product product = prod.get();
-        List<Product> products = new ArrayList<>();
-        products.add(product);
-
-        PurchaseOrder purchaseOrder = getPurchaseOrderById(idOrder);
-        purchaseOrder.setProducts(products);
-        purchaseOrder.getClient().setPurchaseOrders(setOrder(purchaseOrder.getId()));
-
-        return purchaseOrderRepository.save(purchaseOrder);
-    }
-
-    private List<PurchaseOrder> setOrder(Long id) {
-        List<PurchaseOrder> purchaseOrders = new ArrayList<>();
-        purchaseOrders.add(getPurchaseOrderById(id));
-        return purchaseOrders;
-    }
-
-    private void checkingOrder(Long id) {
-        getPurchaseOrderById(id);
-    }
+//    private void checkingOrder(Long id) {
+//        getPurchaseOrderById(id);
+//    }
 }

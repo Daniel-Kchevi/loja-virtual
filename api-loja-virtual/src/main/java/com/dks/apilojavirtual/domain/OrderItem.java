@@ -1,31 +1,29 @@
 package com.dks.apilojavirtual.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Client implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class OrderItem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @OneToOne
+    private Product product;
 
-    private String email;
+    public OrderItem(Product product){
+        this.product = product;
+    }
 
-    @OneToMany(mappedBy = "client")
-    @JsonIgnore
-    private List<PurchaseOrder> purchaseOrders;
+    private Long amount;
 }

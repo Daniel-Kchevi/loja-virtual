@@ -1,6 +1,5 @@
 package com.dks.apilojavirtual.resource;
 
-import com.dks.apilojavirtual.domain.Product;
 import com.dks.apilojavirtual.domain.PurchaseOrder;
 import com.dks.apilojavirtual.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,6 @@ public class PurchaseOrderController {
     @Autowired
     private PurchaseOrderService purchaseOrderService;
 
-    @GetMapping
-    public ResponseEntity<List<PurchaseOrder>> listOrder(){
-        return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.list());
-    }
-
     @PostMapping
     public ResponseEntity<PurchaseOrder> createOrder(@RequestBody PurchaseOrder purchaseOrder){
 
@@ -38,16 +32,6 @@ public class PurchaseOrderController {
         return ResponseEntity.created(uri).body(purchaseOrder);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PurchaseOrder> editOrder(@RequestBody PurchaseOrder purchaseOrder,
-                                                   @PathVariable("id") Long id){
-        purchaseOrder.setId(id);
-        purchaseOrderService.edit(purchaseOrder);
-
-        return ResponseEntity.noContent().build();
-
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<PurchaseOrder> deleteOrder(@PathVariable("id") Long id){
         purchaseOrderService.delete(id);
@@ -55,16 +39,9 @@ public class PurchaseOrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PurchaseOrder> getOrderById(@PathVariable("id")Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(purchaseOrderService.getPurchaseOrderById(id));
-    }
-
-    @PostMapping("/{id}/products")
-    public ResponseEntity<Void> addProduct(@PathVariable("id") Long id,
-                                           @RequestBody Product product){
-        purchaseOrderService.saveProduct(id, product.getId());
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<?> getOrderById(@PathVariable("id")Long id){
+        PurchaseOrder purchaseOrder = purchaseOrderService.getPurchaseOrderById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(purchaseOrder);
     }
 
 }
